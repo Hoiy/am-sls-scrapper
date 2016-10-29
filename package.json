@@ -1,26 +1,27 @@
 {
-    "name": "am-sls-scrapper",
-    "version": "1.0.0",
-    "description": "Automail Serverless scrapper plugin",
-    "main": "handler.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/Hoiy/am-sls-scrapper.git"
-    },
-    "author": "Hoiy",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/Hoiy/am-sls-scrapper/issues"
-    },
-    "homepage": "https://github.com/Hoiy/am-sls-scrapper#readme",
-    "devDependencies": {
-        "serverless-offline": "^3.1.0"
-    },
-    "dependencies": {
-        "cheerio": "^0.22.0",
-        "request": "^2.76.0"
-    }
+  "name": "am-sls-scrapper",
+  "version": "1.0.0",
+  "description": "Automail Serverless scrapper plugin",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hoiy/am-sls-scrapper.git"
+  },
+  "author": "Hoiy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hoiy/am-sls-scrapper/issues"
+  },
+  "homepage": "https://github.com/Hoiy/am-sls-scrapper#readme",
+  "devDependencies": {
+    "serverless-offline": "^3.1.0"
+  },
+  "dependencies": {
+    "cheerio": "^0.22.0",
+    "request": "^2.76.0",
+    "require-from-string": "^1.2.1"
+  }
 }
