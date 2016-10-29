@@ -1,15 +1,26 @@
 'use strict';
 
-const cheerio = require('cheerio');
-const request = require('request');
+var request = require('request');
+var cheerio = require('cheerio');
 
 module.exports.main = (event, context, callback) => {
-  request(event.body.uri, function (error, response, html) {
+  request(event.body.url, function (error, response, html) {
     if (error) {
       callback(error, null);
       return;
     }
-    var $ = cheerio.load(html);
-    callback(null, html);
+
+    try {
+      var result = require('./config/example.js');
+      var $ = cheerio.load(html);
+      Object.keys(result).forEach(function(key) {
+        if(typeof result[key] === 'function') {
+          result[key] = result[key]($);
+        }
+      });
+      callback(null, result);
+    } catch (e) {
+      callback(e, null);
+    }
   });
 };
