@@ -11,11 +11,14 @@
 #
 # Happy Coding!
 
-service: aws-nodejs # NOTE: update this with your service name
+service: am-sls-scrapper # NOTE: update this with your service name
 
 provider:
   name: aws
   runtime: nodejs4.3
+  stage: dev
+  region: us-east-1
+  profile: Hoiy
 
 plugins:
   - serverless-offline
@@ -52,6 +55,12 @@ functions:
       - http:
           path: scrape
           method: post
+          #integration: lambda
+          #request:
+            #passThrough: WHEN_NO_MATCH
+            #template:
+              #multipart/form-data: '{ "url": "$input.params("url")", "body" : $input.json("$") }'
+              #application/x-www-form-urlencoded: '{ "test": $input.json("$"), "url": $util.urlDecode($input.json("$.url")), "config": $util.urlDecode($input.json("$.config")) }'
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
