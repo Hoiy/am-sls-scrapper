@@ -55,6 +55,10 @@ functions:
       - http:
           path: scrape
           method: post
+          #response:
+            #headers:
+              #Content-Type: "'application/json; charset=utf-8;'"
+
           #integration: lambda
           #request:
             #passThrough: WHEN_NO_MATCH
