@@ -24,6 +24,6 @@
         "cheerio": "^0.22.0",
         "iconv-lite": "^0.4.13",
         "request": "^2.76.0",
-        "require-from-string": "^1.2.1",
+        "require-from-string": "^1.2.1"
     }
 }
