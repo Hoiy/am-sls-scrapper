@@ -33,7 +33,8 @@ module.exports.main = (event, context, callback) => {
         statusCode: 200,
         body: JSON.stringify(result),
         headers: {
-          "Content-Type" : "application/json; charset=UTF-8"
+          "Content-Type" : "application/json; charset=UTF-8",
+          "Access-Control-Allow-Origin": "*"
         },
       });
     } catch (e) {

@@ -55,6 +55,7 @@ functions:
       - http:
           path: scrape
           method: post
+          cors: true
           #response:
             #headers:
               #Content-Type: "'application/json; charset=utf-8;'"
