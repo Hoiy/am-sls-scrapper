@@ -20,10 +20,9 @@
         "serverless-offline": "^3.1.0"
     },
     "dependencies": {
-        "charset-parser": "^0.2.0",
         "cheerio": "^0.22.0",
-        "iconv-lite": "^0.4.13",
-        "request": "^2.76.0",
+        "node-horseman": "^3.2.0",
+        "phantomjs": "^2.1.7",
         "require-from-string": "^1.2.1"
     }
 }

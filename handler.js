@@ -1,44 +1,39 @@
 'use strict';
 
-var request = require('request');
-var cheerio = require('cheerio');
-var rfs = require('require-from-string');
-var iconv = require('iconv-lite');
-var charsetParser = require('charset-parser');
+var Horseman = require('node-horseman')
+var cheerio = require('cheerio')
+var rfs = require('require-from-string')
 
 module.exports.main = (event, context, callback) => {
-  var body = JSON.parse(event.body);
-  request({
-    uri: body.url,
-    encoding: null,
-  }, function (error, response, binary) {
-    if (error) {
-      callback(error, null);
-      return;
-    }
-
-    try {
-      var charset = charsetParser(response.headers['content-type'], binary, 'iso-8859-1');
-      var html = iconv.decode(binary, charset); // convert any encoding to UTF-8
-      var $ = cheerio.load(html);
-
-      var result = rfs(body.config);
-      Object.keys(result).forEach(function(key) {
-        if(typeof result[key] === 'function') {
-          result[key] = result[key]($);
-        }
-      });
-
-      callback(null, {
-        statusCode: 200,
-        body: JSON.stringify(result),
-        headers: {
-          "Content-Type" : "application/json; charset=UTF-8",
-          "Access-Control-Allow-Origin": "*"
-        },
-      });
-    } catch (e) {
-      callback(e, null);
-    }
-  });
+    let body = JSON.parse(event.body)
+    let horseman = new Horseman()
+    horseman
+        .viewport(1920, 1080)
+        .open(body.url)
+        .html()
+        .then(html => {
+            let $ = cheerio.load(html);
+            let result = rfs(body.config);
+            Object.keys(result).forEach(function(key) {
+                if (typeof result[key] === 'function') {
+                    result[key] = result[key]($, horseman)
+                }
+            })
+            callback(null, {
+                statusCode: 200,
+                body: JSON.stringify(result),
+                headers: {
+                    "Content-Type": "application/json; charset=UTF-8",
+                    "Access-Control-Allow-Origin": "*"
+                },
+            })
+            return horseman.close()
+        })
+        .catch(function(e) {
+            callback(e, {
+                headers: {
+                    "Access-Control-Allow-Origin": "*"
+                }
+            })
+        })
 };
