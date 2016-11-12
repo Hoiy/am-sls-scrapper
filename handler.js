@@ -1,22 +1,22 @@
 'use strict';
 
-var Horseman = require('node-horseman')
-var cheerio = require('cheerio')
-var rfs = require('require-from-string')
+let Horseman = require('node-horseman')
+let Cheerio = require('cheerio')
+let Rfs = require('require-from-string')
 
 module.exports.main = (event, context, callback) => {
     let body = JSON.parse(event.body)
+    let config = Rfs(body.config)
     let horseman = new Horseman()
     horseman
-        .viewport(1920, 1080)
-        .open(body.url)
+        .open(config.url)
         .html()
         .then(html => {
-            let $ = cheerio.load(html);
-            let result = rfs(body.config);
+            let $ = Cheerio.load(html);
+            let result = config.scrapper
             Object.keys(result).forEach(function(key) {
                 if (typeof result[key] === 'function') {
-                    result[key] = result[key]($, horseman)
+                    result[key] = result[key]($)
                 }
             })
             callback(null, {
